@@ -1,0 +1,103 @@
+---
+// src/components/sections/Hero.astro
+---
+
+<section
+    class="relative h-screen flex items-center justify-center overflow-hidden"
+>
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Fascada del complejo turístico histórico"
+            class="w-full h-full object-cover object-center"
+            fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-brand-blue/40 mix-blend-multiply"></div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-blue/80 via-transparent to-transparent"
+        >
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="relative z-10 text-center px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto mt-16"
+    >
+        <span
+            class="block text-brand-gold font-semibold tracking-[0.2em] uppercase text-sm md:text-base mb-4 animate-fade-in-up"
+        >
+            Recuperando Espacios Atemporales
+        </span>
+        <h1
+            class="text-4xl sm:text-5xl md:text-7xl font-bold font-playfair text-white mb-6 drop-shadow-lg leading-tight animate-fade-in-up animation-delay-150"
+        >
+            Respira Nueva Vida en<br />Residencias de Herencia
+        </h1>
+        <p
+            class="mt-4 text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light drop-shadow-md animate-fade-in-up animation-delay-300"
+        >
+            Donde la historia se encuentra con el confort moderno. Redefinimos
+            el significado del lujo clásico para tu descanso inolvidable.
+        </p>
+
+        <div class="animate-fade-in-up animation-delay-450">
+            <a
+                href="#alojamiento"
+                class="inline-block bg-white text-brand-blue font-semibold px-8 py-4 rounded-sm hover:bg-brand-gold hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+            >
+                Descubrir Habitaciones
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce"
+    >
+        <a
+            href="#about"
+            class="text-white/70 hover:text-brand-gold transition-colors"
+            aria-label="Scroll down"
+        >
+            <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg
+            >
+        </a>
+    </div>
+</section>
+
+<style>
+    /* Optional: Simple inline animations if tailwind config isn't extended yet */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+    .animation-delay-150 {
+        animation-delay: 150ms;
+    }
+    .animation-delay-300 {
+        animation-delay: 300ms;
+    }
+    .animation-delay-450 {
+        animation-delay: 450ms;
+    }
+</style>

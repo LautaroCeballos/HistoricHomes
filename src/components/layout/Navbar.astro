@@ -1,0 +1,152 @@
+---
+const links = [
+    { name: "Inicio", href: "/" },
+    { name: "Alojamiento", href: "#alojamiento" },
+    { name: "Reseñas", href: "#resenas" },
+    { name: "Galería", href: "#galeria" },
+];
+---
+
+<header
+    class="fixed w-full top-0 z-50 transition-all duration-300 bg-brand-light/90 backdrop-blur-md border-b border-gray-200"
+>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center">
+                <a
+                    href="/"
+                    class="font-playfair text-2xl font-bold tracking-tight text-brand-blue"
+                >
+                    Historic<span class="text-brand-gold">Homes</span>
+                </a>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8">
+                {
+                    links.map((link) => (
+                        <a
+                            href={link.href}
+                            class="text-brand-gray hover:text-brand-blue font-medium transition-colors"
+                        >
+                            {link.name}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <!-- CTA & Contact -->
+            <div class="hidden md:flex items-center space-x-6">
+                <div class="flex flex-col text-right">
+                    <span
+                        class="text-xs uppercase tracking-wider text-brand-gray font-semibold"
+                        >Reserva Directa</span
+                    >
+                    <a
+                        href="tel:+18001234567"
+                        class="text-brand-blue font-bold font-playfair hover:text-brand-gold transition-colors"
+                        >+1 (800) 123-4567</a
+                    >
+                </div>
+                <a
+                    href="#contacto"
+                    class="bg-brand-blue hover:bg-brand-blue/90 text-white px-6 py-2.5 rounded-sm font-medium transition-all shadow-md hover:shadow-lg focus:ring-2 focus:ring-brand-gold focus:outline-none"
+                >
+                    Consultar
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button
+                    id="mobile-menu-btn"
+                    class="text-brand-blue hover:text-brand-gold focus:outline-none"
+                >
+                    <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div
+        id="mobile-menu"
+        class="md:hidden hidden bg-brand-light border-t border-gray-200"
+    >
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        class="block px-3 py-2 rounded-md text-base font-medium text-brand-gray hover:text-brand-blue hover:bg-gray-100"
+                    >
+                        {link.name}
+                    </a>
+                ))
+            }
+            <a
+                href="#contacto"
+                class="block mt-4 w-full text-center bg-brand-blue text-white px-3 py-2 rounded-md font-medium"
+            >
+                Consultar
+            </a>
+        </div>
+    </div>
+</header>
+
+<script>
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+
+    btn?.addEventListener("click", () => {
+        menu?.classList.toggle("hidden");
+    });
+
+    // Smooth scroll para todos los enlaces, incluido logotipo
+    document.querySelectorAll("a").forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+            const targetId = this.getAttribute("href");
+
+            // Si es un link externo (ej: tel:, mailto:), dejamos que se comporte normal
+            if (
+                !targetId ||
+                targetId.startsWith("tel:") ||
+                targetId.startsWith("mailto:")
+            ) {
+                return;
+            }
+
+            // Si es el logo o "Inicio" (href="/")
+            if (targetId === "/") {
+                e.preventDefault();
+                menu?.classList.add("hidden");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+            }
+
+            // Si es un ancla interna
+            if (targetId.startsWith("#")) {
+                if (targetId === "#") return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    menu?.classList.add("hidden");
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        });
+    });
+</script>

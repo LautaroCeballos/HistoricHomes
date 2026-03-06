@@ -1,0 +1,324 @@
+---
+// src/components/sections/Gallery.astro
+
+const images = [
+    {
+        src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        alt: "Habitación clásica con luz natural",
+        class: "col-span-1 md:col-span-2 row-span-2",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1600607688960-e095ff83135c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Detalle de madera tallada",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Baño de época restaurado",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        alt: "Patio interior con jardín",
+        class: "col-span-1 md:col-span-2 row-span-1",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Sala de estar común",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Balcón con vista",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    // Nuevas imágenes añadidas para completar la cuadrícula 4x3
+    {
+        src: "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Dormitorio de lujo histórico",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    {
+        src: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Escalera clásica",
+        class: "col-span-1 row-span-1",
+        hidden: false
+    },
+    // Imágenes ocultas para el botón "Ver Galería Completa"
+    {
+        src: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Fachada exterior al atardecer",
+        class: "col-span-1 md:col-span-2 row-span-1",
+        hidden: true
+    },
+    {
+        src: "https://images.unsplash.com/photo-1564078516393-cf04bd966897?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        alt: "Piscina y comodidades",
+        class: "col-span-1 md:col-span-2 row-span-1",
+        hidden: true
+    }
+];
+---
+
+<section id="galeria" class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-playfair font-bold text-brand-blue mb-4">
+                Descubre Nuestra Artesanía
+            </h2>
+            <div class="h-1 bg-brand-gold w-20 mx-auto"></div>
+        </div>
+
+        <!-- Masonry-like Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[250px]" id="gallery-grid">
+            {
+                images.map((img) => (
+                    <div
+                        class={`relative overflow-hidden rounded-sm group cursor-pointer gallery-item ${img.class} ${img.hidden ? 'hidden extra-image' : ''}`}
+                        data-src={img.src}
+                        data-alt={img.alt}
+                    >
+                        <img
+                            src={img.src}
+                            alt={img.alt}
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                            loading="lazy"
+                        />
+                        <!-- Overlay icon -->
+                        <div class="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/40 transition-colors duration-300 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="mt-12 text-center">
+            <button
+                id="load-more-btn"
+                class="inline-block bg-brand-blue text-white font-medium px-8 py-3 rounded-sm hover:bg-brand-gold focus:ring-4 focus:ring-brand-gold/30 transition-all duration-300 cursor-pointer"
+            >
+                Ver Galería Completa
+            </button>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        
+        <!-- Controles Top -->
+        <div class="absolute top-0 inset-x-0 p-3 flex justify-between items-center z-50 bg-gradient-to-b from-black/60 to-transparent">
+            <span id="lightbox-counter" class="text-white/70 font-inter text-xs tracking-widest bg-black/40 px-3 py-1 rounded-full">1 / 12</span>
+            <button id="lightbox-close" class="text-white/70 hover:text-white transition-colors focus:outline-none">
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        
+        <!-- Main Image Area -->
+        <div class="relative w-full max-w-6xl flex-1 flex items-center justify-center px-8 md:px-16 mt-10 mb-2" id="lightbox-content-area">
+            
+            <!-- Botón Anterior -->
+            <button id="lightbox-prev" class="absolute left-2 md:left-4 text-white/50 hover:text-white hover:scale-110 transition-all focus:outline-none z-50 p-2">
+                <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+
+            <!-- Imagen Principal -->
+            <div class="relative transform scale-95 transition-transform duration-300 flex flex-col items-center h-full justify-center" id="lightbox-content">
+                <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[55vh] md:max-h-[65vh] object-contain shadow-2xl transition-opacity duration-300" />
+                <p id="lightbox-caption" class="text-white/90 text-center mt-4 font-playfair text-base md:text-lg tracking-wide font-light hidden sm:block"></p>
+            </div>
+
+            <!-- Botón Siguiente -->
+            <button id="lightbox-next" class="absolute right-2 md:right-4 text-white/50 hover:text-white hover:scale-110 transition-all focus:outline-none z-50 p-2">
+                <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+            </button>
+        </div>
+
+        <!-- Tira de Miniaturas (Thumbnails) -->
+        <div class="w-full bg-black/50 overflow-x-auto py-3 px-4 h-24 hidden sm:block">
+            <div class="flex items-center justify-center gap-2 min-w-max mx-auto" id="lightbox-thumbnails">
+               <!-- Se rellenará via JS -->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- Botón de "Ver Galería Completa" ---
+        const btn = document.getElementById('load-more-btn');
+        const hiddenImages = document.querySelectorAll('.extra-image.hidden');
+
+        if (btn && hiddenImages.length > 0) {
+            btn.addEventListener('click', () => {
+                hiddenImages.forEach(img => {
+                    img.classList.remove('hidden');
+                    img.classList.add('animate-fade-in-up');
+                });
+                btn.parentElement?.classList.add('hidden');
+                initLightbox(); // Re-inicializar para incluir las nuevas imágenes en el array
+            });
+        }
+
+        // --- Lógica del Lightbox Interactivo ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxContent = document.getElementById('lightbox-content');
+        const btnClose = document.getElementById('lightbox-close');
+        const btnPrev = document.getElementById('lightbox-prev');
+        const btnNext = document.getElementById('lightbox-next');
+        const counter = document.getElementById('lightbox-counter');
+        const thumbContainer = document.getElementById('lightbox-thumbnails');
+        
+        let currentIndex = 0;
+        let visibleItems: HTMLElement[] = []; // Solo las imágenes visibles en el DOM
+
+        const updateImage = (index: number) => {
+            if (index < 0) index = visibleItems.length - 1;
+            if (index >= visibleItems.length) index = 0;
+            currentIndex = index;
+
+            const item = visibleItems[currentIndex];
+            const src = item.getAttribute('data-src');
+            const alt = item.getAttribute('data-alt');
+
+            if (src && alt && lightboxImg && lightboxCaption && counter) {
+                // Efecto crossfade simple
+                lightboxImg.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    lightboxImg.src = src;
+                    lightboxImg.alt = alt;
+                    lightboxCaption.textContent = alt;
+                    counter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+                    lightboxImg.style.opacity = '1';
+                    
+                    updateActiveThumbnail();
+                }, 150);
+            }
+        };
+
+        const updateActiveThumbnail = () => {
+             const thumbs = thumbContainer?.querySelectorAll('img');
+             thumbs?.forEach((thumb, idx) => {
+                 if (idx === currentIndex) {
+                     thumb.classList.add('opacity-100', 'ring-2', 'ring-brand-gold');
+                     thumb.classList.remove('opacity-50');
+                     // Autoscroll miniatura al centro
+                     thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                 } else {
+                     thumb.classList.remove('opacity-100', 'ring-2', 'ring-brand-gold');
+                     thumb.classList.add('opacity-50');
+                 }
+             });
+        };
+
+        const generateThumbnails = () => {
+            if (!thumbContainer) return;
+            thumbContainer.innerHTML = ''; // Limpiar
+            
+            visibleItems.forEach((item, index) => {
+                const src = item.getAttribute('data-src');
+                const alt = item.getAttribute('data-alt');
+                
+                if (src) {
+                    const thumb = document.createElement('img');
+                    thumb.src = src;
+                    thumb.alt = alt || `Thumbnail ${index + 1}`;
+                    thumb.className = 'w-16 h-12 object-cover cursor-pointer rounded-sm hover:opacity-100 transition-all opacity-50'; // Reducidas a w-16 h-12
+                    thumb.onclick = (e) => {
+                        e.stopPropagation(); // Prevenir que el click cierre el modal
+                        updateImage(index);
+                    };
+                    thumbContainer.appendChild(thumb);
+                }
+            });
+        };
+
+        const openLightbox = (index: number) => {
+            if (!lightbox) return;
+            
+            // Re-evaluar items visibles en caso de que se haya clickeado "Load More"
+            initLightbox(); 
+            generateThumbnails();
+            updateImage(index);
+            
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex'); // Necesitamos flex de Tailwind
+            void lightbox.offsetWidth; // Trigger reflow
+            lightbox.classList.remove('opacity-0');
+            lightboxContent?.classList.remove('scale-95');
+            lightboxContent?.classList.add('scale-100');
+            
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeLightbox = () => {
+            if (!lightbox) return;
+            
+            lightbox.classList.add('opacity-0');
+            lightboxContent?.classList.remove('scale-100');
+            lightboxContent?.classList.add('scale-95');
+            
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        const initLightbox = () => {
+            // Solo tomar imágenes que NO tienen display:none (Tailwind .hidden)
+            const allItems = document.querySelectorAll('.gallery-item');
+            visibleItems = Array.from(allItems).filter(item => {
+                return !item.classList.contains('hidden');
+            }) as HTMLElement[];
+            
+            // Asignar eventos de click a las miniaturas del grid
+            visibleItems.forEach((item, index) => {
+                item.onclick = () => openLightbox(index);
+            });
+        };
+
+        // Eventos de botones
+        btnPrev?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateImage(currentIndex - 1);
+        });
+        
+        btnNext?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateImage(currentIndex + 1);
+        });
+        
+        btnClose?.addEventListener('click', closeLightbox);
+        
+        lightbox?.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target === document.getElementById('lightbox-content-area')) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox || lightbox.classList.contains('hidden')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') updateImage(currentIndex - 1);
+            if (e.key === 'ArrowRight') updateImage(currentIndex + 1);
+        });
+
+        // Inicialización inicial
+        initLightbox();
+    });
+</script>

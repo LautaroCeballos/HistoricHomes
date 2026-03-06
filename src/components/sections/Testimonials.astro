@@ -1,0 +1,73 @@
+---
+// src/components/sections/Testimonials.astro
+
+const reviews = [
+  {
+    name: "Sarah Jenkins",
+    role: "Huésped Frecuente",
+    avatar: "https://i.pravatar.cc/150?img=47",
+    text: "Mágicos días. Realmente sientes la historia de la casa pero la cama era increíblemente cómoda y el wifi muy rápido. El servicio de desayuno es de primera."
+  },
+  {
+    name: "David & Laura",
+    role: "Aniversario",
+    avatar: "https://i.pravatar.cc/150?img=11",
+    text: "El fin de semana perfecto. La arquitectura es impresionante y el personal nos hizo sentir como realeza. Definitivamente volveremos para nuestro próximo aniversario."
+  },
+  {
+    name: "Michael Chen",
+    role: "Viajero de Negocios",
+    avatar: "https://i.pravatar.cc/150?img=33",
+    text: "Un oasis de tranquilidad en el centro de la ciudad. Excelente aislamiento acústico y un escritorio perfecto para trabajar con vistas al jardín interior."
+  }
+];
+---
+
+<section id="resenas" class="relative py-24 bg-brand-blue overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      alt="Fondo de reseñas resort"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-brand-blue/90 mix-blend-multiply"></div>
+  </div>
+
+  <!-- Decorative Quote -->
+  <div class="absolute top-10 left-10 text-brand-gold/10 z-10">
+    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-16">
+      <span class="text-brand-gold uppercase tracking-widest text-sm font-semibold mb-2 block">Reseñas</span>
+      <h2 class="text-3xl md:text-4xl font-playfair font-bold text-white">
+        Elogios de Clientes
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {reviews.map((review) => (
+        <div class="bg-white p-8 rounded-sm shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow">
+          <div class="flex items-center gap-1 text-brand-gold mb-6">
+            <!-- 5 Stars -->
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+          </div>
+          <p class="text-brand-gray italic flex-grow mb-8">"{review.text}"</p>
+          <div class="flex items-center gap-4 mt-auto">
+            <img src={review.avatar} alt={review.name} class="w-12 h-12 rounded-full ring-2 ring-brand-gold/30" loading="lazy" />
+            <div>
+              <p class="font-bold text-brand-blue font-playfair">{review.name}</p>
+              <p class="text-xs text-brand-gray uppercase">{review.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

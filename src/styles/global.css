@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+    --font-inter: "Inter", "Roboto", sans-serif;
+    --font-playfair: "Playfair Display", serif;
+
+    --color-brand-blue: #1C2938;
+    /* Azul marino oscuro */
+    --color-brand-gold: #C5A880;
+    /* Dorado para botones / detalles */
+    --color-brand-light: #F9F9F9;
+    /* Fondo claro */
+    --color-brand-gray: #4A5568;
+    /* Texto secundario */
+}
+
+@layer base {
+    html {
+        font-family: var(--font-inter), sans-serif;
+        scroll-behavior: smooth;
+        background-color: var(--color-brand-light);
+        color: var(--color-brand-blue);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-playfair), serif;
+    }
+}
